@@ -13,4 +13,7 @@ $t->get_ok('/api/v0/user/1.json')
     ->json_has('/name')
     ->json_has('/name_parts');
 
+$t->get_ok('/api/v0/user/100999.json')
+    ->status_is(404);
+
 done_testing();

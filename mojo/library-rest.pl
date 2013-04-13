@@ -21,15 +21,23 @@ get '/' => sub {
 get '/api/v0/library/:id' => sub {
   my $self = shift;
   my $library = $impl->get_library($self->stash('id'));
-  $self->stash( library => $library );
-  $self->render('library');
+  if ($library) {
+    $self->stash( library => $library );
+    $self->render('library');
+  } else {
+    $self->render_not_found;
+  }
 };
 
 get '/api/v0/user/:id' => sub {
   my $self = shift;
   my $user = $impl->get_user($self->stash('id'));
-  $self->stash( user => $user );
-  $self->render('user');
+  if ($user) {
+    $self->stash( user => $user );
+    $self->render('user');
+  } else {
+    $self->render_not_found;
+  }
 };
 
 app->start;
