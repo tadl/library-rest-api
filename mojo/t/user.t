@@ -1,0 +1,16 @@
+use Test::More;
+use Test::Mojo;
+
+use FindBin;
+require "$FindBin::Bin/../library-rest.pl";
+
+my $t = Test::Mojo->new;
+
+$t->get_ok('/api/v0/user/1.json')
+    ->status_is(200)
+    ->json_has('/id')
+    ->json_is('/id' => 1)
+    ->json_has('/name')
+    ->json_has('/name_parts');
+
+done_testing();
