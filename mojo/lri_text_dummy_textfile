@@ -1,0 +1,6 @@
+# just some data for the MockLRIText module
+library	id:1	name:Example Library One
+library	id:2	name:Example Library Two
+patron	id:1	name:John Q Public	name_parts:John|Q|Public
+patron	id:2	name:John R Public	name_parts:John|R|Public
+patron	id:3	name:John S Public	name_parts:John|S|Public

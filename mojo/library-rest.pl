@@ -9,7 +9,8 @@ use UNIVERSAL::require;
 use FindBin;
 use lib "$FindBin::Bin";
 
-my $impl = "Local::MockLibraryREST";
+#my $impl = "Local::LRI::MockLRIDummy";
+my $impl = "Local::LRI::MockLRIText";
 
 $impl->use;
 
@@ -40,6 +41,17 @@ get '/api/v0/user/:id' => sub {
   }
 };
 
+get '/api/v0/about' => sub {
+  my $self = shift;
+  my $about = $impl->about();
+  if ($about) {
+    $self->stash( about => $about );
+    $self->render('about');
+  } else {
+    $self->render_not_found;
+  }
+};
+
 app->start;
 __DATA__
 
@@ -58,6 +70,7 @@ To try it out, visit some of the following URLs:
 /api/v0/library/42
 /api/v0/library/42.json
 /api/v0/library/42.xml
+/api/v0/about
 </pre>
 
 @@ layouts/default.html.ep
@@ -90,3 +103,14 @@ User Name <%= $user->{name} %>
 
 @@ user.xml.ep
 <response><user><id><%= $user->{id} %></id><name><%= $user->{name} %></name></user></response>
+
+@@ about.html.ep
+% layout 'default';
+% title 'About';
+<%= $about->{about} %>
+
+@@ about.json.ep
+<%== Mojo::JSON->new->encode($about) %>
+
+@@ about.xml.ep
+<response><about><%= $about->{about} %></about></response>
