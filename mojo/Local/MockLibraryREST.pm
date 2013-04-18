@@ -47,6 +47,13 @@ my $cards = {
     1123 => 123,
 };
 
+# user credentials
+my $creds = {
+    1001 => '$1$XENTOaqg$eOBJ39bOViO6C8Qf2p.oB1', # "john"
+    1002 => '$1$8zUXi9JI$lmPBH06URfmB4PFxUTya4.', # "alice"
+    1123 => '$1$3z4lCvcK$1.QL66bx/Qer4NRYWK4UM/', # "bob"
+};
+
 sub get_library {
     my $self = shift;
     my $id = shift;
@@ -71,13 +78,15 @@ sub get_auth {
     my $user = shift;
     my $pass = shift;
 
-    # this is the dummy driver and we are not doing password validation
-    # at this time. this means that any password is considered valid.
+    # look up user by library card number and verify password
     if (my $auth_user = $users->{$cards->{$user}}) {
-        return {
-            user=>$auth_user->{id},
-            token => 'FAKE_TOKEN_' . $user . '_TOKEN_FAKE'
-        };
+        my $hash = $creds->{$auth_user};
+        if (crypt($pass,$hash) eq $hash) {
+            return {
+                user=>$auth_user->{id},
+                token => 'FAKE_TOKEN_' . $user . '_TOKEN_FAKE'
+            };
+        }
     }
     return 0;
 }
