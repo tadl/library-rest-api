@@ -18,6 +18,7 @@ get '/' => sub {
 
 get '/api/v0/library/:id' => sub {
   my $self = shift;
+  $self->res->headers->header('Access-Control-Allow-Origin' => '*');
   my $library = $impl->get_library($self->stash('id'));
   if ($library) {
     $self->stash( library => $library );
@@ -29,6 +30,7 @@ get '/api/v0/library/:id' => sub {
 
 get '/api/v0/user/:id' => sub {
   my $self = shift;
+  $self->res->headers->header('Access-Control-Allow-Origin' => '*');
   my $user = $impl->get_user($self->stash('id'));
   if ($user) {
     $self->stash( user => $user );
@@ -40,6 +42,8 @@ get '/api/v0/user/:id' => sub {
 
 get '/api/auth' => sub {
     my $self = shift;
+    $self->res->headers->header('Access-Control-Allow-Origin' => '*');
+    $self->res->headers->header('Access-Control-Allow-Methods' => 'GET, POST, OPTIONS');
     # should accept user and pass as POST
     my $user = $self->param('user');
     my $pass = $self->param('pass');
