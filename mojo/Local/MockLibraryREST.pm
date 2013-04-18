@@ -59,4 +59,12 @@ sub get_user {
     return;
 }
 
+sub get_token {
+    my $self = shift;
+    my $user = shift;
+    my $pass = shift;
+
+    return 'FAKE_TOKEN_' . $user . '_TOKEN_FAKE';
+}
+
 1;

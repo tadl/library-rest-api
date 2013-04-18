@@ -38,6 +38,16 @@ get '/api/v0/user/:id' => sub {
   }
 };
 
+get '/api/auth' => sub {
+    my $self = shift;
+    # should accept user and pass as POST
+    my $user = $self->param('user');
+    my $pass = $self->param('pass');
+    my $token = $impl->get_token($user, $pass);
+    $self->stash(auth_data => {token => $token});
+    $self->render('auth');
+};
+
 app->start;
 __DATA__
 
@@ -88,3 +98,6 @@ User Name <%= $user->{name} %>
 
 @@ user.xml.ep
 <response><user><id><%= $user->{id} %></id><name><%= $user->{name} %></name></user></response>
+
+@@ auth.json.ep
+<%== Mojo::JSON->new->encode($auth_data) %>
