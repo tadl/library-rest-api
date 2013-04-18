@@ -49,9 +49,9 @@ my $cards = {
 
 # user credentials
 my $creds = {
-    1001 => '$1$XENTOaqg$eOBJ39bOViO6C8Qf2p.oB1', # "john"
-    1002 => '$1$8zUXi9JI$lmPBH06URfmB4PFxUTya4.', # "alice"
-    1123 => '$1$3z4lCvcK$1.QL66bx/Qer4NRYWK4UM/', # "bob"
+    1 => '$1$XENTOaqg$eOBJ39bOViO6C8Qf2p.oB1', # "john"
+    2 => '$1$8zUXi9JI$lmPBH06URfmB4PFxUTya4.', # "alice"
+    123 => '$1$3z4lCvcK$1.QL66bx/Qer4NRYWK4UM/', # "bob"
 };
 
 sub get_library {
