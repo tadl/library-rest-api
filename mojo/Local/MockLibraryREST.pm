@@ -80,8 +80,8 @@ sub get_auth {
 
     # look up user by library card number and verify password
     if (my $auth_user = $users->{$cards->{$user}}) {
-        my $hash = $creds->{$auth_user};
-        if (crypt($pass,$hash) eq $hash) {
+        my $hash = $creds->{$cards->{$user}};
+        if (defined($hash) && defined($pass) && crypt($pass,$hash) eq $hash) {
             return {
                 user=>$auth_user->{id},
                 token => 'FAKE_TOKEN_' . $user . '_TOKEN_FAKE'
