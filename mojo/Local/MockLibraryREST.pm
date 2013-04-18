@@ -27,16 +27,19 @@ my $users = {
         id => 1,
         name => 'John Q Public',
         name_parts => [ 'John', 'Q', 'Public' ],
+        summary => { checkouts => 3, holds => 3, balance => '$0.00' }
     },
     2 => {
         id => 2,
         name => 'Alice J Public',
         name_parts => [ 'Alice', 'J', 'Public' ],
+        summary => { checkouts => 1, holds => 0, balance => '$0.00' }
     },
     123 => {
         id => 123,
         name => 'Bob R Public',
         name_parts => [ 'Bob', 'R', 'Public' ],
+        summary => { checkouts => 0, holds => 13, balance => '$3.25' }
     },
 };
 
