@@ -6,8 +6,6 @@ use Mojolicious::Lite;
 use Mojo::JSON;
 
 use UNIVERSAL::require;
-use FindBin;
-use lib "$FindBin::Bin";
 
 my $impl = "Local::MockLibraryREST";
 
