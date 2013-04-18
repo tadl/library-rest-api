@@ -30,14 +30,21 @@ my $users = {
     },
     2 => {
         id => 2,
-        name => 'John Q Public',
-        name_parts => [ 'John', 'Q', 'Public' ],
+        name => 'Alice J Public',
+        name_parts => [ 'Alice', 'J', 'Public' ],
     },
     123 => {
         id => 123,
-        name => 'John Q Public',
-        name_parts => [ 'John', 'Q', 'Public' ],
+        name => 'Bob R Public',
+        name_parts => [ 'Bob', 'R', 'Public' ],
     },
+};
+
+# mapping of library card numbers to patron ids
+my $cards = {
+    1001 => 1,
+    1002 => 2,
+    1123 => 123,
 };
 
 sub get_library {
