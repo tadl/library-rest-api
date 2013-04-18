@@ -43,9 +43,13 @@ get '/api/auth' => sub {
     # should accept user and pass as POST
     my $user = $self->param('user');
     my $pass = $self->param('pass');
-    my $token = $impl->get_token($user, $pass);
-    $self->stash(auth_data => {token => $token});
-    $self->render('auth');
+    my $auth_data = $impl->get_auth($user, $pass);
+    if ($auth_data) {
+        $self->stash(auth_data => $auth_data);
+        $self->render('auth');
+    } else {
+        $self->render_not_found;
+    }
 };
 
 app->start;

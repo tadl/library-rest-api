@@ -66,12 +66,20 @@ sub get_user {
     return;
 }
 
-sub get_token {
+sub get_auth {
     my $self = shift;
     my $user = shift;
     my $pass = shift;
 
-    return 'FAKE_TOKEN_' . $user . '_TOKEN_FAKE';
+    # this is the dummy driver and we are not doing password validation
+    # at this time. this means that any password is considered valid.
+    if (my $auth_user = $users->{$cards->{$user}}) {
+        return {
+            user=>$auth_user->{id},
+            token => 'FAKE_TOKEN_' . $user . '_TOKEN_FAKE'
+        };
+    }
+    return 0;
 }
 
 1;
