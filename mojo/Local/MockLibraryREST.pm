@@ -57,6 +57,24 @@ my $creds = {
     123 => '$1$3z4lCvcK$1.QL66bx/Qer4NRYWK4UM/', # "bob"
 };
 
+my $circs = [
+    {   id => 1,
+        title => 'Some Book',
+        author => 'Smith, John',
+        due_date => '2012-01-01'
+    },
+    {   id => 2,
+        title => 'Second Book',
+        author => 'Smith, John',
+        due_date => '2012-02-03'
+    },
+    {   id => 3,
+        title => 'Third Book',
+        author => 'Smith, John',
+        due_date => '2013-05-01'
+    },
+];
+
 sub get_library {
     my $self = shift;
     my $id = shift;
@@ -92,6 +110,12 @@ sub get_auth {
         }
     }
     return 0;
+}
+
+sub get_circ {
+    my $self = shift;
+
+    return $circs;
 }
 
 1;

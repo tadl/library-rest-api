@@ -40,6 +40,18 @@ get '/api/user/:id' => sub {
   }
 };
 
+get '/api/circ' => sub {
+  my $self = shift;
+  $self->res->headers->header('Access-Control-Allow-Origin' => '*');
+  my $circs = $impl->get_circ();
+  $self->stash( circ => $circs );
+  #$self->render('circ');
+  $self->respond_to(
+    json => sub { $self->render(template=>'circ') },
+    xml => sub { $self->render(template=>'circ') },
+  );
+};
+
 get '/api/auth' => sub {
     my $self = shift;
     $self->res->headers->header('Access-Control-Allow-Origin' => '*');
@@ -106,6 +118,19 @@ User Name <%= $user->{name} %>
 
 @@ user.xml.ep
 <response><user><id><%= $user->{id} %></id><name><%= $user->{name} %></name></user></response>
+
+@@ circ.json.ep
+<%== Mojo::JSON->new->encode($circ) %>
+
+@@ circ.xml.ep
+<response>
+<circ>
+<id><%= $circ->{id} %></id>
+<title><%= $circ->{title} %></title>
+<author><%= $circ->{author} %></author>
+<due_date><%= $circ->{due_date} %></due_date>
+</circ>
+</response>
 
 @@ auth.json.ep
 <%== Mojo::JSON->new->encode($auth_data) %>
