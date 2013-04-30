@@ -16,7 +16,7 @@ get '/' => sub {
   $self->render('index');
 };
 
-get '/api/v0/library/:id' => sub {
+get '/api/library/:id' => sub {
   my $self = shift;
   $self->res->headers->header('Access-Control-Allow-Origin' => '*');
   my $library = $impl->get_library($self->stash('id'));
@@ -28,7 +28,7 @@ get '/api/v0/library/:id' => sub {
   }
 };
 
-get '/api/v0/user/:id' => sub {
+get '/api/user/:id' => sub {
   my $self = shift;
   $self->res->headers->header('Access-Control-Allow-Origin' => '*');
   my $user = $impl->get_user($self->stash('id'));
@@ -68,12 +68,12 @@ Greetings. This is an experiment / proof of concept for a RESTful API for librar
 
 To try it out, visit some of the following URLs:
 
-/api/v0/user/123
-/api/v0/user/123.json
-/api/v0/user/123.xml
-/api/v0/library/42
-/api/v0/library/42.json
-/api/v0/library/42.xml
+/api/user/123
+/api/user/123.json
+/api/user/123.xml
+/api/library/42
+/api/library/42.json
+/api/library/42.xml
 </pre>
 
 @@ layouts/default.html.ep
