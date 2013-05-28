@@ -11,6 +11,8 @@ my $impl = "Local::MockLibraryREST";
 
 $impl->use;
 
+my $ils = $impl->new();
+
 get '/' => sub {
   my $self = shift;
   $self->render('index');
@@ -19,7 +21,7 @@ get '/' => sub {
 get '/api/library/:id' => sub {
   my $self = shift;
   $self->res->headers->header('Access-Control-Allow-Origin' => '*');
-  my $library = $impl->get_library($self->stash('id'));
+  my $library = $ils->get_library($self->stash('id'));
   if ($library) {
     $self->stash( library => $library );
     $self->render('library');
@@ -31,7 +33,7 @@ get '/api/library/:id' => sub {
 get '/api/user/:id' => sub {
   my $self = shift;
   $self->res->headers->header('Access-Control-Allow-Origin' => '*');
-  my $user = $impl->get_user($self->stash('id'));
+  my $user = $ils->get_user($self->stash('id'));
   if ($user) {
     $self->stash( user => $user );
     $self->render('user');
@@ -43,7 +45,7 @@ get '/api/user/:id' => sub {
 get '/api/circ' => sub {
   my $self = shift;
   $self->res->headers->header('Access-Control-Allow-Origin' => '*');
-  my $circs = $impl->get_circ();
+  my $circs = $ils->get_circ();
   $self->stash( circ => $circs );
   #$self->render('circ');
   $self->respond_to(
@@ -59,7 +61,7 @@ get '/api/auth' => sub {
     # should accept user and pass as POST
     my $user = $self->param('user');
     my $pass = $self->param('pass');
-    my $auth_data = $impl->get_auth($user, $pass);
+    my $auth_data = $ils->get_auth($user, $pass);
     if ($auth_data) {
         $self->stash(auth_data => $auth_data);
         $self->render('auth');
