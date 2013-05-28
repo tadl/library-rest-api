@@ -32,8 +32,10 @@ get '/api/library/:id' => sub {
 
 get '/api/user/:id' => sub {
   my $self = shift;
+  my $uid = $self->param('uid');
+  my $token = $self->param('token');
   $self->res->headers->header('Access-Control-Allow-Origin' => '*');
-  my $user = $ils->get_user($self->stash('id'));
+  my $user = $ils->get_user($uid, $token, $self->stash('id'));
   if ($user) {
     $self->stash( user => $user );
     $self->render('user');
